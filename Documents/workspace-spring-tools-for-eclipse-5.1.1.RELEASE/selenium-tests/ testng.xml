@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="E-Commerce Automation Suite">
+    
+    <test name="Login Tests">
+        <classes>
+            <class name="com.ecommerce.tests.LoginTest"/>
+        </classes>
+    </test>
+    
+    <test name="Register Tests">
+        <classes>
+            <class name="com.ecommerce.tests.RegisterTest"/>
+        </classes>
+    </test>
+    
+    <test name="Navigation Tests">
+        <classes>
+            <class name="com.ecommerce.tests.NavigationTest"/>
+        </classes>
+    </test>
+    
+    <test name="Cart Tests">
+        <classes>
+            <class name="com.ecommerce.tests.CartTest"/>
+        </classes>
+    </test>
+
+</suite>
