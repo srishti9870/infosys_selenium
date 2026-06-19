@@ -73,4 +73,5 @@ public class ProductDetailTest extends BaseTest {
         Assert.assertTrue(detailPage.isStockStatusVisible(), "Stock status should be visible");
         System.out.println("✅ Add to Cart + Stock Status visible");
     }
+    
 }

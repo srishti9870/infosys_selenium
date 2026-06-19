@@ -1,28 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="E-Commerce Automation Suite">
-    
+<suite name="E-Commerce Full Test Suite">
     <test name="Login Tests">
-        <classes>
-            <class name="com.ecommerce.tests.LoginTest"/>
-        </classes>
+        <classes><class name="com.ecommerce.tests.LoginTest"/></classes>
     </test>
-    
-    <test name="Register Tests">
-        <classes>
-            <class name="com.ecommerce.tests.RegisterTest"/>
-        </classes>
+    <test name="Search & Filter Tests">
+        <classes><class name="com.ecommerce.tests.SearchFilterTest"/></classes>
     </test>
-    
-    <test name="Navigation Tests">
-        <classes>
-            <class name="com.ecommerce.tests.NavigationTest"/>
-        </classes>
+    <test name="Add to Cart Tests">
+        <classes><class name="com.ecommerce.tests.AddToCartTest"/></classes>
     </test>
-    
-    <test name="Cart Tests">
-        <classes>
-            <class name="com.ecommerce.tests.CartTest"/>
-        </classes>
+    <test name="Cart Validation Tests">
+        <classes><class name="com.ecommerce.tests.CartValidationTest"/></classes>
     </test>
-
 </suite>

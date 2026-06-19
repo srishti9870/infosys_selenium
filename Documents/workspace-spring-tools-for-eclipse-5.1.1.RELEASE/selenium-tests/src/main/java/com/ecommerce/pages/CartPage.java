@@ -38,4 +38,12 @@ public class CartPage {
     public void clickShopNow() {
         driver.findElement(shopNowBtn).click();
     }
+
+    public String getTotalAmount() {
+        try {
+            return driver.findElement(By.xpath("//span[contains(text(),'₹') and contains(@style,'font-weight')]")).getText();
+        } catch (Exception e) {
+            return "₹0";
+        }
+    }
 }

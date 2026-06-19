@@ -1,59 +1,50 @@
 package com.ecommerce.tests;
 
 import com.ecommerce.pages.*;
-import com.ecommerce.utils.LoginUtils;
+import com.ecommerce.utils.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.openqa.selenium.By;
 
 public class SearchFilterTest extends BaseTest {
 
-    @Test(priority = 1, description = "Test search with valid keyword")
+    @Test(priority = 1, description = "Search with valid keyword")
     public void testSearchValidKeyword() {
-        LoginUtils.login(driver, "srishti_mamgai", "mamgai@345678");
-
+        LoginUtils.login(driver, prop.getProperty("test.username"), prop.getProperty("test.password"));
+        
         HomePage homePage = new HomePage(driver);
         homePage.searchProduct("iPhone");
-        try { Thread.sleep(2000); } catch (Exception e) {}
-
+        TestUtils.waitForPageLoad(driver);
+        
         SearchFilterPage searchPage = new SearchFilterPage(driver);
-        Assert.assertTrue(searchPage.hasResults(), "Should show results for iPhone");
+        Assert.assertTrue(searchPage.hasResults(), "Should show results");
         System.out.println("✅ Search results: " + searchPage.getResultCount());
     }
 
-    @Test(priority = 2, description = "Test search with invalid keyword")
+    @Test(priority = 2, description = "Search with invalid keyword")
     public void testSearchInvalidKeyword() {
-        LoginUtils.login(driver, "srishti_mamgai", "mamgai@345678");
-
+        LoginUtils.login(driver, prop.getProperty("test.username"), prop.getProperty("test.password"));
+        
         HomePage homePage = new HomePage(driver);
         homePage.searchProduct("xyz123nonexistent");
-        try { Thread.sleep(2000); } catch (Exception e) {}
-
+        TestUtils.waitForPageLoad(driver);
+        
         SearchFilterPage searchPage = new SearchFilterPage(driver);
-        Assert.assertTrue(
-            searchPage.isNoResultsMessage() || searchPage.getResultCount() == 0,
-            "Should show no results"
-        );
+        Assert.assertTrue(searchPage.getResultCount() == 0 || searchPage.isNoResultsMessage(), 
+            "Should show no results");
         System.out.println("✅ No results for invalid search");
     }
 
-    @Test(priority = 3, description = "Verify search results match keyword")
-    public void testSearchResultsMatch() {
-        LoginUtils.login(driver, "srishti_mamgai", "mamgai@345678");
-
-        HomePage homePage = new HomePage(driver);
-        // Use a keyword that EXISTS in your products
-        homePage.searchProduct("iPhone");
-        try { Thread.sleep(2000); } catch (Exception e) {}
-
+    @Test(priority = 3, description = "Filter by category")
+    public void testFilterByCategory() {
+        LoginUtils.login(driver, prop.getProperty("test.username"), prop.getProperty("test.password"));
+        
+        // Navigate to products with category filter
+        driver.get(prop.getProperty("base.url") + "/products?category=Smartphones");
+        TestUtils.waitForPageLoad(driver);
+        
         SearchFilterPage searchPage = new SearchFilterPage(driver);
-        
-        if (!searchPage.hasResults()) {
-            System.out.println("⚠️ No results found, skipping verification");
-            return;
-        }
-        
-        Assert.assertTrue(searchPage.verifySearchResults("iPhone"), 
-            "Results should contain 'iPhone'");
-        System.out.println("✅ Search results verified for keyword");
+        Assert.assertTrue(searchPage.hasResults(), "Should show filtered results");
+        System.out.println("✅ Category filter results: " + searchPage.getResultCount());
     }
 }
